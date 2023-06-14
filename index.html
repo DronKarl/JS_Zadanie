@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src = "./dist/bundle.js" type="module"></script>
+  <style>
+    .active {
+      background-color: #ccc;
+    }
+
+    .collapsed {
+      display: none;
+    }
+
+    /* Style dla wcięć poszczególnych poziomów menu */
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+
+    ul.level1 {
+      background-color: #eee;
+    }
+
+    ul.level2 {
+      background-color: #ddd;
+      margin-left: 10px;
+    }
+
+    ul.level3 {
+      background-color: #ccc;
+      margin-left: 20px;
+    }
+
+    /* Style dla elementów menu */
+    li {
+      list-style-type: none;
+      padding: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<ul class="level1">
+  <li onclick="toggleSubMenu(this)">Element 1
+    <ul class="level2 collapsed">
+      <li onclick="toggleSubMenu(this)">Podpunkt 1.1</li>
+      <li onclick="toggleSubMenu(this)">Podpunkt 1.2</li>
+      <li onclick="toggleSubMenu(this)">Podpunkt 1.3</li>
+    </ul>
+  </li>
+  <li onclick="toggleSubMenu(this)">Element 2
+    <ul class="level2 collapsed">
+      <li onclick="toggleSubMenu(this)">Podpunkt 2.1</li>
+      <li onclick="toggleSubMenu(this)">Podpunkt 2.2</li>
+      <li onclick="toggleSubMenu(this)">Podpunkt 2.3</li>
+    </ul>
+  </li>
+  <li onclick="toggleSubMenu(this)">Element 3
+    <ul class="level2 collapsed">
+      <li onclick="toggleSubMenu(this)">Podpunkt 3.1</li>
+      <li onclick="toggleSubMenu(this)">Podpunkt 3.2</li>
+      <li onclick="toggleSubMenu(this)">Podpunkt 3.3</li>
+    </ul>
+  </li>
+</ul>
+
+<script>
+  function toggleSubMenu(element) {
+    // Zwijanie innych rozwiniętych elementów menu drugiego poziomu
+    const level2Items = document.querySelectorAll('.level2');
+    for (let i = 0; i < level2Items.length; i++) {
+      if (level2Items[i] !== element.querySelector('.level2')) {
+        level2Items[i].classList.add('collapsed');
+      }
+    }
+
+    // Zwijanie innych rozwiniętych elementów menu trzeciego poziomu
+    const level3Items = document.querySelectorAll('.level3');
+    for (let i = 0; i < level3Items.length; i++) {
+      level3Items[i].classList.add('collapsed');
+    }
+
+    // Rozwijanie/zwijanie podmenu dla aktualnego elementu
+    const subMenu = element.querySelector('.level2');
+    if (subMenu) {
+      subMenu.classList.toggle('collapsed');
+    }
+
+    // Oznaczanie aktualnego elementu menu jako aktywnego
+    const menuItems = document.querySelectorAll('li');
+    for (let i = 0; i < menuItems.length; i++) {
+      menuItems[i].classList.remove('active');
+    }
+    element.classList.add('active');
+  }
+</script>
+</body>
+</html>
+
+
